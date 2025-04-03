@@ -18,6 +18,7 @@ if [ ! -f "/appdata/space-engineers/World/SpaceEngineers-Dedicated.cfg" ]; then
   exit 131
 else
   sed -i '/LoadWorld/c\<LoadWorld>Z:\\appdata\\space-engineers\\World\\World</LoadWorld>' /appdata/space-engineers/World/SpaceEngineers-Dedicated.cfg
+  sed -i '/<ServerPasswordSalt>/c\<ServerPasswordSalt>dGVjaG5pY2FsbHl0aGlzaXNiYXNlNjQ=</ServerPasswordSalt>' /appdata/space-engineers/World/SpaceEngineers-Dedicated.cfg
   rm -rf /appdata/space-engineers/SpaceEngineersDedicated/SpaceEngineers-Dedicated.cfg
   cp /appdata/space-engineers/World/SpaceEngineers-Dedicated.cfg /appdata/space-engineers/SpaceEngineersDedicated/SpaceEngineers-Dedicated.cfg
   cat /appdata/space-engineers/World/SpaceEngineers-Dedicated.cfg
