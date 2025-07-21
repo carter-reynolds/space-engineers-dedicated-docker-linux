@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+eval "`./settings.env.sh`"
+
+if $DOCKER_COMMAND volume ls | grep $WORLD_VOLUME_NAME > /dev/null; then
+    echo "Found existing world volume $WORLD_VOLUME_NAME. I don't want to destroy your world, exiting."
+    exit 2
+else
+    echo "didn't find an existing world volume"
+fi
+
+
+$DOCKER_COMMAND volume create $WORLD_VOLUME_NAME
+$DOCKER_COMMAND volume create $PLUGINS_VOLUME_NAME
+$DOCKER_COMMAND run --rm --name space-engineers-dedicated-docker-linux-setup -v $WORLD_VOLUME_NAME:/world -v ./star-system.zip:/star-system.zip alpine unzip -n /star-system.zip -d world
+$DOCKER_COMMAND run --rm --name space-engineers-dedicated-docker-linux-setup -v $WORLD_VOLUME_NAME:/world alpine chown -R 1000:1000 /world
